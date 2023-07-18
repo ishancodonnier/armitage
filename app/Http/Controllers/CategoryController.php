@@ -42,7 +42,7 @@ class CategoryController extends Controller
                 $file = $request->file('category_image');
                 $randomTime = str_shuffle(round(microtime(true)));
                 $new_data['category_image'] = $randomTime . "." . $file->getClientOriginalExtension();
-                $file->move(public_path('images/category_images/'), $new_data['category_image']);
+                $file->move('./../../allanArmitage/app_images/category_images/', $new_data['category_image']);
                 $data['image'] = $new_data['category_image'];
             }
 
@@ -88,7 +88,7 @@ class CategoryController extends Controller
             ]);
 
             if ($request->file('category_image')) {
-                $fileToDelete = public_path('images/category_images/') . $category->image;
+                $fileToDelete = './../../allanArmitage/app_images/category_images/' . $category->image;
 
                 if (file_exists($fileToDelete) && $category->image != null) {
                     unlink($fileToDelete);
@@ -97,7 +97,7 @@ class CategoryController extends Controller
                 $file = $request->file('category_image');
                 $randomTime = str_shuffle(round(microtime(true)));
                 $new_data['category_image'] = $randomTime . "." . $file->getClientOriginalExtension();
-                $file->move(public_path('images/category_images/'), $new_data['category_image']);
+                $file->move('./../../allanArmitage/app_images/category_images/', $new_data['category_image']);
 
                 $data['image'] = $new_data['category_image'];
             }

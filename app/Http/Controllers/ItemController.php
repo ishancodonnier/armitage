@@ -59,7 +59,7 @@ class ItemController extends Controller
                     $file = $image;
                     $randomTime = str_shuffle(round(microtime(true)));
                     $image_name = $randomTime . "." . $file->getClientOriginalExtension();
-                    $file->move(public_path('images/item_images/'), $image_name);
+                    $file->move('./../../allanArmitage/app_images/item_images/', $image_name);
 
                     $image_data = [
                         'item_id' => $item->id,
@@ -265,7 +265,7 @@ class ItemController extends Controller
 
             if ($request->file('item_image')) {
                 foreach ($item_image as $i_img) {
-                    $fileToDelete = public_path('images/item_images/') . $i_img->image;
+                    $fileToDelete = './../../allanArmitage/app_images/item_images/' . $i_img->image;
                     if (file_exists($fileToDelete)) {
                         unlink($fileToDelete);
                     }
@@ -276,7 +276,7 @@ class ItemController extends Controller
                     $file = $image;
                     $randomTime = str_shuffle(round(microtime(true)));
                     $image_name = $randomTime . "." . $file->getClientOriginalExtension();
-                    $file->move(public_path('images/item_images/'), $image_name);
+                    $file->move('./../../allanArmitage/app_images/item_images/', $image_name);
 
                     $image_data = [
                         'item_id' => $item->id,

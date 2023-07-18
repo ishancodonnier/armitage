@@ -38,7 +38,7 @@ class SubCategoryController extends Controller
                 $file = $request->file('sub_category_image');
                 $randomTime = str_shuffle(round(microtime(true)));
                 $new_data['sub_category_image'] = $randomTime . "." . $file->getClientOriginalExtension();
-                $file->move(public_path('images/sub_category_images/'), $new_data['sub_category_image']);
+                $file->move('./../../allanArmitage/app_images/sub_category_images/', $new_data['sub_category_image']);
                 $new_image = $new_data['sub_category_image'];
             }
 
@@ -99,7 +99,7 @@ class SubCategoryController extends Controller
             if ($request->file('sub_category_image')) {
                 $sub_category_image = SubCategory::where('image', $sub_category->image)->count();
                 if($sub_category_image <= 1) {
-                    $fileToDelete = public_path('images/sub_category_images/') . $sub_category->image;
+                    $fileToDelete = './../../allanArmitage/app_images/sub_category_images/' . $sub_category->image;
                     if (file_exists($fileToDelete) && $sub_category->image != null) {
                         unlink($fileToDelete);
                     }
@@ -107,7 +107,7 @@ class SubCategoryController extends Controller
                 $file = $request->file('sub_category_image');
                 $randomTime = str_shuffle(round(microtime(true)));
                 $new_data['sub_category_image'] = $randomTime . "." . $file->getClientOriginalExtension();
-                $file->move(public_path('images/sub_category_images/'), $new_data['sub_category_image']);
+                $file->move('./../../allanArmitage/app_images/sub_category_images/', $new_data['sub_category_image']);
                 $data['image'] = $new_data['sub_category_image'];
             }
 

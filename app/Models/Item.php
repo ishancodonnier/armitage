@@ -17,7 +17,9 @@ class Item extends Model
         'description',
         'website',
         'status',
-        'is_delete'
+        'is_delete',
+        'grown_for',
+        'botanical_name'
     ];
 
     public function item_image()

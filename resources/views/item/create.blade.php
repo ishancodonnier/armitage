@@ -66,6 +66,45 @@
                                 </div>
 
                                 <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="grown_for">Grown For</label>
+                                            <select class="form-control select2bs4" name="grown_for" id="grown_for">
+                                                <option value="" selected="selected">Please Select
+                                                    Grown For
+                                                </option>
+                                                <option value="1">
+                                                    Grown For Flowers
+                                                </option>
+                                                <option value="2">
+                                                    Grown For Foliage
+                                                </option>
+                                                <option value="3">
+                                                    Grown For Flowers and Foliage
+                                                </option>
+                                            </select>
+                                            @error('grown_for')
+                                                <span class="error invalid-feedback"
+                                                    style="display: block">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="botanical_name">Botanical Name</label>
+                                            <input type="url" name="botanical_name"
+                                                class="form-control @error('botanical_name') is-invalid @enderror" id="botanical_name"
+                                                placeholder="Enter Botanical Name" value="{{ old('botanical_name') }}">
+                                            @error('botanical_name')
+                                                <span class="error invalid-feedback"
+                                                    style="display: block">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
                                     <div class="col-12">
                                         <div class="card">
                                             <div class="card-header">

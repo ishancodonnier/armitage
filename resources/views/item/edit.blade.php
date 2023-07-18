@@ -36,6 +36,8 @@
                         <form id="item_edit_form" method="POST" action="{{ route('item.update', ['id' => $item->id]) }}"
                             enctype="multipart/form-data">@csrf
                             <div class="card-body">
+
+
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -58,6 +60,45 @@
                                                 class="form-control @error('website') is-invalid @enderror" id="website"
                                                 placeholder="Enter Website" value="{{ old('website') ?? $item->website }}">
                                             @error('website')
+                                                <span class="error invalid-feedback"
+                                                    style="display: block">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="grown_for">Grown For</label>
+                                            <select class="form-control select2bs4" name="grown_for" id="grown_for">
+                                                <option value="">Please Select
+                                                    Grown For
+                                                </option>
+                                                <option @if($item->grown_for == "1") selected @endif value="1">
+                                                    Grown For Flowers
+                                                </option>
+                                                <option @if($item->grown_for == "2") selected @endif value="2">
+                                                    Grown For Foliage
+                                                </option>
+                                                <option @if($item->grown_for == "3") selected @endif value="3">
+                                                    Grown For Flowers and Foliage
+                                                </option>
+                                            </select>
+                                            @error('grown_for')
+                                                <span class="error invalid-feedback"
+                                                    style="display: block">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="botanical_name">Botanical Name</label>
+                                            <input type="url" name="botanical_name"
+                                                class="form-control @error('botanical_name') is-invalid @enderror" id="botanical_name"
+                                                placeholder="Enter Botanical Name" value="{{ old('botanical_name') ?? $item->botanical_name }}">
+                                            @error('botanical_name')
                                                 <span class="error invalid-feedback"
                                                     style="display: block">{{ $message }}</span>
                                             @enderror

@@ -14,7 +14,8 @@ class AddFieldsInItems extends Migration
     public function up()
     {
         Schema::table('items', function (Blueprint $table) {
-            //
+            $table->string('grown_for')->nullable()->after('website');
+            $table->string('botanical_name')->nullable()->after('website');
         });
     }
 
@@ -26,7 +27,8 @@ class AddFieldsInItems extends Migration
     public function down()
     {
         Schema::table('items', function (Blueprint $table) {
-            //
+            $table->dropColumn('grown_for');
+            $table->dropColumn('botanical_name');
         });
     }
 }

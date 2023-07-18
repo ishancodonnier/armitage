@@ -38,14 +38,18 @@ class ItemController extends Controller
                 'sub_category_id.*' => 'nullable',
                 'item_image.*' => 'required',
                 'image_title.*' => 'nullable',
-                'status' => 'required'
+                'status' => 'required',
+                'grown_for' => 'nullable',
+                'botanical_name' => 'nullable',
             ]);
 
             $data = [
                 'title' => $request->title,
                 'description' => $request->description,
                 'website' => $request->website,
-                'status' => $request->status
+                'status' => $request->status,
+                'grown_for' => $request->grown_for,
+                'botanical_name' => $request->botanical_name,
             ];
 
             $item = Item::create($data);
@@ -172,14 +176,18 @@ class ItemController extends Controller
                 'sub_category_id.*' => 'nullable',
                 'item_image.*' => 'nullable',
                 'image_title.*' => 'nullable',
-                'status' => 'required'
+                'status' => 'required',
+                'grown_for' => 'nullable',
+                'botanical_name' => 'nullable',
             ]);
 
             $data = [
                 'title' => $request->title,
                 'description' => $request->description,
                 'website' => $request->website,
-                'status' => $request->status
+                'status' => $request->status,
+                'grown_for' => $request->grown_for,
+                'botanical_name' => $request->botanical_name,
             ];
 
             CategoryItemSubcategory::where('item_id', $item->id)->delete();

@@ -111,7 +111,7 @@
                                 @if($sub_category->image)
                                     <div class="row">
                                         <div style="display: grid;">
-                                            <img width="200px" height="200px" src="{{ '../../images/sub_category_images/' . $sub_category->image }}">
+                                            <img width="200px" height="200px" src="{{ env('IMAGES_PATH') . 'sub_category_images/' . $sub_category->image }}">
                                             <span>{{ $sub_category->image }}</span>
                                         </div>
                                     </div>

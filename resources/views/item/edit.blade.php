@@ -349,7 +349,7 @@
                     <div class="row" style="gap: 20px;">
                         @foreach ($item->item_image as $item_image)
                             <div style="display: grid;">
-                                <img width="200px" height="200px" src="{{ '../../images/item_images/' . $item_image->image }}">
+                                <img width="200px" height="200px" src="{{ env('IMAGES_PATH') . 'item_images/' . $item_image->image }}">
                                 <span>{{ $item_image->image }}</span>
                             </div>
                         @endforeach

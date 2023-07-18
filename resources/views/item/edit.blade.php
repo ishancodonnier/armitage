@@ -95,7 +95,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="botanical_name">Botanical Name</label>
-                                            <input type="url" name="botanical_name"
+                                            <input type="text" name="botanical_name"
                                                 class="form-control @error('botanical_name') is-invalid @enderror" id="botanical_name"
                                                 placeholder="Enter Botanical Name" value="{{ old('botanical_name') ?? $item->botanical_name }}">
                                             @error('botanical_name')

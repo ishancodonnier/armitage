@@ -85,7 +85,7 @@
     <script>
         $(function() {
             $("#category_list").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "responsive": true, "autoWidth": false,
                 "buttons": ["csv", "excel", "pdf", "print"]
             }).buttons().container().appendTo('#category_list_wrapper .col-md-6:eq(0)');
         });

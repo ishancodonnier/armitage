@@ -109,7 +109,7 @@
     <script>
         $(function() {
             $("#item_list").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "responsive": true, "autoWidth": false,
                 "buttons": ["csv", "excel", "pdf", "print"]
             }).buttons().container().appendTo('#item_list_wrapper .col-md-6:eq(0)');
         });

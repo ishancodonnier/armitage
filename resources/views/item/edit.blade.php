@@ -167,7 +167,7 @@
                                                                             </option>
                                                                             @foreach ($cat->sub_category as $sub_cat)
                                                                                 <option
-                                                                                    @if ($cat->id == $sub_cat->id) selected @endif
+                                                                                    @if ($sub->id == $sub_cat->id) selected @endif
                                                                                     value="{{ $sub_cat->id }}">
                                                                                     {{ $sub_cat->title }}
                                                                                 </option>

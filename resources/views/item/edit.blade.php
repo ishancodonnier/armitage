@@ -155,8 +155,8 @@
                                                         </div>
                                                         <div class="col-md-4 add_sub_category_on_change">
                                                             @if (count($item->subCategories) > 0)
-                                                                @foreach ($item->subCategories as $sub)
-                                                                    @if ($cat->id == $sub->category->id)
+                                                                {{-- @foreach ($item->subCategories as $sub) --}}
+                                                                    @if ($cat->id == $item->subCategories->category->id)
                                                                         <select
                                                                             class="form-control select2bs4 sub_category_id"
                                                                             name="sub_category_id[{{ $key + 1 }}]"
@@ -174,7 +174,7 @@
                                                                             @endforeach
                                                                         </select>
                                                                     @endif
-                                                                @endforeach
+                                                                {{-- @endforeach --}}
                                                             @endif
                                                         </div>
                                                         <div class="col-md-4">

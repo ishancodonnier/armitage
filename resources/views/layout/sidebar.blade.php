@@ -27,7 +27,8 @@
                                 request()->route()->getName() == 'main.category.store' ||
                                 request()->route()->getName() == 'main.category.edit' ||
                                 request()->route()->getName() == 'main.category.update' ||
-                                request()->route()->getName() == 'main.category.destroy') active @endif">
+                                request()->route()->getName() == 'main.category.destroy' ||
+                                request()->route()->getName() == 'main.category.restore') active @endif">
                         <i class="nav-icon fas fa-list"></i>
                         <p>
                             Main Category
@@ -42,7 +43,8 @@
                                 request()->route()->getName() == 'category.store' ||
                                 request()->route()->getName() == 'category.edit' ||
                                 request()->route()->getName() == 'category.update' ||
-                                request()->route()->getName() == 'category.destroy') active @endif">
+                                request()->route()->getName() == 'category.destroy' ||
+                                request()->route()->getName() == 'category.restore') active @endif">
                         <i class="nav-icon fas fa-th-large"></i>
                         <p>
                             Category
@@ -57,7 +59,8 @@
                                 request()->route()->getName() == 'sub.category.store' ||
                                 request()->route()->getName() == 'sub.category.edit' ||
                                 request()->route()->getName() == 'sub.category.update' ||
-                                request()->route()->getName() == 'sub.category.destroy') active @endif">
+                                request()->route()->getName() == 'sub.category.destroy' ||
+                                request()->route()->getName() == 'sub.category.restore') active @endif">
                         <i class="nav-icon fas fa-th-list"></i>
                         <p>
                             Sub Category
@@ -73,10 +76,28 @@
                                 request()->route()->getName() == 'item.edit' ||
                                 request()->route()->getName() == 'item.update' ||
                                 request()->route()->getName() == 'item.destroy'||
-                                request()->route()->getName() == 'item.show.sub.category') active @endif">
+                                request()->route()->getName() == 'item.show.sub.category' ||
+                                request()->route()->getName() == 'item.restore' ||
+                                request()->route()->getName() == 'item.delete.image.from.item') active @endif">
                         <i class="nav-icon fas fa-leaf"></i>
                         <p>
                             Items
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('garden.center.index') }}"
+                        class="nav-link @if (request()->route()->getName() == 'garden.center.index' ||
+                                request()->route()->getName() == 'garden.center.create' ||
+                                request()->route()->getName() == 'garden.center.store' ||
+                                request()->route()->getName() == 'garden.center.edit' ||
+                                request()->route()->getName() == 'garden.center.update' ||
+                                request()->route()->getName() == 'garden.center.destroy' ||
+                                request()->route()->getName() == 'garden.center.restore') active @endif">
+                        <i class="nav-icon fa fa-map-marker"></i>
+                        <p>
+                            Garden Centers
                         </p>
                     </a>
                 </li>

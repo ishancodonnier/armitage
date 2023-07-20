@@ -3,6 +3,7 @@
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\GardenCenterController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\MainCategoryController;
@@ -48,6 +49,15 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/sub-category/{id}/update', [SubCategoryController::class, 'update'])->name('sub.category.update');
     Route::get('/sub-category/{id}/delete', [SubCategoryController::class, 'destroy'])->name('sub.category.destroy');
     Route::get('/sub-category/{id}/restore', [SubCategoryController::class, 'restore'])->name('sub.category.restore');
+
+    Route::get('/garden-center', [GardenCenterController::class, 'index'])->name('garden.center.index');
+    Route::get('/garden-center/create', [GardenCenterController::class, 'create'])->name('garden.center.create');
+    Route::post('/garden-center', [GardenCenterController::class, 'store'])->name('garden.center.store');
+    Route::get('/garden-center/{id}/edit', [GardenCenterController::class, 'edit'])->name('garden.center.edit');
+    Route::post('/garden-center/{id}/update', [GardenCenterController::class, 'update'])->name('garden.center.update');
+    Route::get('/garden-center/{id}/delete', [GardenCenterController::class, 'destroy'])->name('garden.center.destroy');
+    Route::get('/garden-center/{id}/restore', [GardenCenterController::class, 'restore'])->name('garden.center.restore');
+    Route::post('/garden-center/delete-image-from-garden-center/{garden_center_id}/{image_id}', [GardenCenterController::class, 'delete_image_from_garden_center'])->name('garden.center.delete.image.from.garden.center');
 
     Route::get('/item', [ItemController::class, 'index'])->name('item.index');
     Route::get('/item/create', [ItemController::class, 'create'])->name('item.create');

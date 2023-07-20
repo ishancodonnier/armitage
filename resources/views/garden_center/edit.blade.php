@@ -30,7 +30,7 @@
                         <div class="card-header">
                             <h3 class="card-title">{{ $pagetitle }}</h3>
                         </div>
-                        <form id="item_edit_form" method="POST"
+                        <form id="garden_center_edit_form" method="POST"
                             action="{{ route('garden.center.update', ['id' => $garden_center->garden_center_id]) }}"
                             enctype="multipart/form-data">@csrf
 
@@ -363,7 +363,6 @@
     <script src="{{ asset('asset/plugins/toastr/toastr.min.js') }}"></script>
     <script src="{{ asset('asset/plugins/summernote/summernote-bs4.min.js') }}"></script>
     <script>
-        const rowNumbers = [1];
         const base_url = "{{ url('/') }}";
 
         $('.select2bs4').select2({
@@ -407,11 +406,9 @@
             $(this).closest('.image_row').remove();
         });
 
-
         $('.remove_saved_image').on('click', function() {
             var garden_image_id = $(this).data('garden_image_id');
-            var garden_center_id = "{{ $garden_center->id }}";
-
+            var garden_center_id = "{{ $garden_center->garden_center_id }}";
             Swal.fire({
                 title: 'Are you sure?',
                 text: "Are you sure you wanted to delete this image permanently?",
@@ -423,8 +420,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: base_url + "/garden-center/delete-image-from-garden-center/" + garden_center_id + "/" +
-                            garden_image_id,
+                        url: base_url + "/garden-center/delete-image-from-garden-center/" + garden_center_id + "/" + garden_image_id,
                         type: "POST",
                         headers: {
                             "X-CSRF-TOKEN": $("meta[name=csrf-token]").attr("content"),
@@ -463,29 +459,41 @@
 
 
         $(function() {
-            var rowCount = $('.category_container .category_row').length + 1;
             var validationRules = {
-                "title": "required",
+                "garden_name": "required",
+                "webside": "required",
+                // "email": "required",
+                "mobile_number": "required",
+                "latitude": "required",
+                "longitude": "required",
+                "address": "required",
+                "city": "required",
+                "state": "required",
+                "zipcode": "required",
+                "region": "required",
                 "description": "required",
                 "garden_image[]": "required",
                 "status": "required"
             };
 
             var validation_messages = {
-                "title": "Please Enter Title",
+                "garden_name": "Please Enter Garden Name",
+                "webside": "Please Enter Website",
+                // "email": "Please Enter Email",
+                "mobile_number": "Please Enter Phone/Mobile Number",
+                "latitude": "Please Enter Latitude",
+                "longitude": "Please Enter Longitude",
+                "address": "Please Enter Address",
+                "city": "Please Enter City",
+                "state": "Please Select State",
+                "zipcode": "Please Enter Zipcode",
+                "region": "Please Select Region",
                 "description": "Please Enter Description",
                 "garden_image[]": "Please Select Item Image",
                 "status": "Please Select Status"
             };
 
-            for (var i = 1; i <= rowCount; i++) {
-                validationRules["category_id[" + i + "]"] = "required";
-                validationRules["new_category[" + i + "]"] = "required";
-                validation_messages["category_id[" + i + "]"] = 'Please Select Category'
-                validationRules["new_category[" + i + "]"] = "Please Enter Category";
-            }
-
-            $('#item_create_form').validate({
+            $('#garden_center_edit_form').validate({
                 rules: validationRules,
                 messages: validation_messages,
                 errorElement: 'span',
@@ -502,6 +510,7 @@
             });
 
         });
+
 
         $(function() {
             bsCustomFileInput.init();

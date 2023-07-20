@@ -115,7 +115,6 @@ class GardenCenterController extends Controller
 
     public function update(Request $request, $id)
     {
-        dd($request);
         try {
             $garden_center = GardenCenter::where('garden_center_id', $id)->first();
 
@@ -155,7 +154,6 @@ class GardenCenterController extends Controller
                 'region' => $request->region,
                 'longitude' => $request->longitude,
                 'latitude' => $request->latitude,
-                'created_date' => new DateTime(),
                 'updated_date' => new DateTime(),
                 'status' => $request->status,
             ];
@@ -186,7 +184,7 @@ class GardenCenterController extends Controller
                     $file->move('./../../allanArmitage/app_images/center_garden_image/', $image_name);
 
                     $image_data = [
-                        'garden_center_id' => $garden_center->id,
+                        'garden_center_id' => $garden_center->garden_center_id,
                         'image' => $image_name,
                         'caption' => $request->garden_image_title[$key] ?? null,
                         'favorite' => 0,
@@ -199,7 +197,7 @@ class GardenCenterController extends Controller
 
             $garden_center->update($data);
 
-            return redirect()->route('item.index')->with('success', 'Garden Center updated successfully!');
+            return redirect()->route('garden.center.index')->with('success', 'Garden Center updated successfully!');
         } catch (\Exception $e) {
             return back()->with('error', 'An error occurred: ' . $e->getMessage());
         }
@@ -231,9 +229,9 @@ class GardenCenterController extends Controller
         }
     }
 
-    public function delete_image_from_garden_center($garden_center_id, $image_id) {
+    public function delete_image_from_garden_center($garden_center_id, $garden_image_id) {
         try {
-            GardenCenterImage::where('garden_center_image_id', $image_id)->where('garden_center_id', $garden_center_id)->delete();
+            GardenCenterImage::where('garden_center_image_id', $garden_image_id)->where('garden_center_id', $garden_center_id)->delete();
             $result['status'] = 1;
             $result['msg'] = "Image deleted successfully";
             return response()->json($result, 200);

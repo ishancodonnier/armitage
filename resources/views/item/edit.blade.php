@@ -696,7 +696,7 @@
                 validationRules["new_category[" + i + "]"] = "Please Enter Category";
             }
 
-            $('#item_create_form').validate({
+            $('#item_edit_form').validate({
                 rules: validationRules,
                 messages: validation_messages,
                 errorElement: 'span',

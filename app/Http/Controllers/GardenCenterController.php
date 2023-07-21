@@ -39,8 +39,8 @@ class GardenCenterController extends Controller
                 'city' => 'required',
                 'state' => 'required',
                 'zipcode' => 'required',
-                'garden_image.*' => 'required',
                 'status' => 'required',
+                'garden_image.*' => 'nullable',
                 'webside' => 'nullable',
                 'email' => 'nullable',
                 'mobile_number' => 'nullable',
@@ -124,20 +124,20 @@ class GardenCenterController extends Controller
 
             $request->validate([
                 'garden_name' => 'required',
-                'webside' => 'nullable',
-                'email' => 'nullable',
-                'mobile_number' => 'nullable',
                 'latitude' => 'required',
                 'longitude' => 'required',
                 'address' => 'required',
                 'city' => 'required',
                 'state' => 'required',
                 'zipcode' => 'required',
+                'status' => 'required',
+                'webside' => 'nullable',
+                'email' => 'nullable',
+                'mobile_number' => 'nullable',
                 'region' => 'nullable',
                 'description' => 'nullable',
-                'garden_image.*' => 'required',
+                'garden_image.*' => 'nullable',
                 'garden_image_title.*' => 'nullable',
-                'status' => 'required',
             ]);
 
             $data = [

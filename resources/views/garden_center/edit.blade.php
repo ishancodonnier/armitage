@@ -530,7 +530,7 @@
                 "zipcode": "required",
                 // "region": "required",
                 // "description": "required",
-                "garden_image[]": "required",
+                // "garden_image[]": "required",
                 "status": "required"
             };
 
@@ -547,7 +547,7 @@
                 "zipcode": "Please Enter Zipcode",
                 // "region": "Please Select Region",
                 // "description": "Please Enter Description",
-                "garden_image[]": "Please Select Item Image",
+                // "garden_image[]": "Please Select Item Image",
                 "status": "Please Select Status"
             };
 

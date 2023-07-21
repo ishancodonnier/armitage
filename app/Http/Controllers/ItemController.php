@@ -32,13 +32,13 @@ class ItemController extends Controller
         try {
             $request->validate([
                 'title' => 'required',
-                'website' => 'nullable',
                 'description' => 'required',
                 'category_id.*' => 'required',
-                'sub_category_id.*' => 'nullable',
-                'item_image.*' => 'required',
-                'image_title.*' => 'nullable',
                 'status' => 'required',
+                'website' => 'nullable',
+                'sub_category_id.*' => 'nullable',
+                'image_title.*' => 'nullable',
+                'item_image.*' => 'nullable',
                 'grown_for' => 'nullable',
                 'botanical_name' => 'nullable',
             ]);
@@ -170,13 +170,13 @@ class ItemController extends Controller
 
             $request->validate([
                 'title' => 'required',
-                'website' => 'nullable',
                 'description' => 'required',
                 'category_id.*' => 'required',
+                'status' => 'required',
                 'sub_category_id.*' => 'nullable',
+                'website' => 'nullable',
                 'item_image.*' => 'nullable',
                 'image_title.*' => 'nullable',
-                'status' => 'required',
                 'grown_for' => 'nullable',
                 'botanical_name' => 'nullable',
             ]);

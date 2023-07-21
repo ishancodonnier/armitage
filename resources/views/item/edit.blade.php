@@ -678,14 +678,18 @@
             var validationRules = {
                 "title": "required",
                 "description": "required",
-                "item_image[]": "required",
+                // "grown_for": "required",
+                // "botanical_name": "required",
+                // "item_image[]": "required",
                 "status": "required"
             };
 
             var validation_messages = {
                 "title": "Please Enter Title",
                 "description": "Please Enter Description",
-                "item_image[]": "Please Select Item Image",
+                // "grown_for": "Please Select Grown For",
+                // "botanical_name": "Please Enter Botanical Name",
+                // "item_image[]": "Please Select Item Image",
                 "status": "Please Select Status"
             };
 

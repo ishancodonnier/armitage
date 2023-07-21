@@ -516,14 +516,14 @@
             var validationRules = {
                 "title": "required",
                 "description": "required",
-                "item_image[]": "required",
+                // "item_image[]": "required",
                 "status": "required"
             };
 
             var validation_messages = {
                 "title": "Please Enter Title",
                 "description": "Please Enter Description",
-                "item_image[]": "Please Select Item Image",
+                // "item_image[]": "Please Select Item Image",
                 "status": "Please Select Status"
             };
 

@@ -182,12 +182,12 @@ class ItemController extends Controller
             ]);
 
             $data = [
-                'title' => $request->title,
-                'description' => $request->description,
-                'website' => $request->website,
-                'status' => $request->status,
-                'grown_for' => $request->grown_for,
-                'botanical_name' => $request->botanical_name,
+                'title' => $request->title ?? '',
+                'description' => $request->description ?? '',
+                'website' => $request->website ?? '',
+                'status' => $request->status ?? '',
+                'grown_for' => $request->grown_for ?? '',
+                'botanical_name' => $request->botanical_name ?? '',
             ];
 
             CategoryItemSubcategory::where('item_id', $item->id)->delete();
@@ -196,8 +196,8 @@ class ItemController extends Controller
                     $category = Category::where('title', $value)->first();
                     if (!$category) {
                         $category = Category::create([
-                            'title' => $value,
-                            'image' => null,
+                            'title' => $value ?? '',
+                            'image' => '',
                             'status' => true,
                         ]);
                     }
@@ -206,18 +206,18 @@ class ItemController extends Controller
                         $sub_category = SubCategory::where('title', $request->new_sub_category[$key])->where('category_id', $category->id)->first();
                         if (!$sub_category) {
                             $sub_category = SubCategory::create([
-                                'title' => $request->new_sub_category[$key],
-                                'image' =>  null,
-                                'category_id' => $category->id,
+                                'title' => $request->new_sub_category[$key] ?? '',
+                                'image' => '',
+                                'category_id' => $category->id ?? '',
                                 'status' => true,
                             ]);
                         }
                     }
 
                     $category_data = [
-                        'category_id' => $category->id,
-                        'sub_category_id' => $sub_category->id ?? null,
-                        'item_id' => $item->id,
+                        'category_id' => $category->id ?? '',
+                        'sub_category_id' => $sub_category->id ?? '',
+                        'item_id' => $item->id ?? '',
                     ];
 
                     CategoryItemSubcategory::create($category_data);
@@ -228,24 +228,24 @@ class ItemController extends Controller
                 foreach ($request->category_id as $key => $value) {
 
                     $category_data = [
-                        'category_id' => $value,
-                        'sub_category_id' => $request->sub_category_id[$key] ?? null,
-                        'item_id' => $item->id,
+                        'category_id' => $value ?? '',
+                        'sub_category_id' => $request->sub_category_id[$key] ?? '',
+                        'item_id' => $item->id ?? '',
                     ];
 
                     if (isset($request->new_sub_category[$key]) && $request->new_sub_category[$key] != null) {
                         $sub_category = SubCategory::where('title', $request->new_sub_category[$key])->where('category_id', $value)->first();
                         if (!$sub_category) {
                             $new_sub = SubCategory::create([
-                                'title' => $request->new_sub_category[$key],
-                                'image' =>  null,
-                                'category_id' => $value,
+                                'title' => $request->new_sub_category[$key] ?? '',
+                                'image' =>  '',
+                                'category_id' => $value ?? '',
                                 'status' => true,
                             ]);
 
-                            $category_data['sub_category_id'] = $new_sub->id;
+                            $category_data['sub_category_id'] = $new_sub->id ?? '';
                         } else {
-                            $category_data['sub_category_id'] = $sub_category->id;
+                            $category_data['sub_category_id'] = $sub_category->id ?? '';
                         }
                     }
 
@@ -258,7 +258,7 @@ class ItemController extends Controller
             if ($request->image_title) {
                 foreach ($item_image as $key => $i_img) {
                     $i_img->update([
-                        'title' => $request->image_title[$key] ?? null,
+                        'title' => $request->image_title[$key] ?? '',
                     ]);
                 }
             }
@@ -279,9 +279,9 @@ class ItemController extends Controller
                     $file->move('./../../allanArmitage/app_images/item_images/', $image_name);
 
                     $image_data = [
-                        'item_id' => $item->id,
-                        'image' => $image_name,
-                        'title' => $request->image_title[$key] ?? null,
+                        'item_id' => $item->id ?? '',
+                        'image' => $image_name ?? '',
+                        'title' => $request->image_title[$key] ?? '',
                     ];
                     ItemImage::create($image_data);
                 }

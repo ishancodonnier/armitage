@@ -34,8 +34,9 @@ class CategoryController extends Controller
             ]);
 
             $data = [
-                'title' => $request->title,
-                'status' => $request->status,
+                'title' => $request->title ?? '',
+                'status' => $request->status ?? '',
+                'image' => '',
             ];
 
             if ($request->file('category_image')) {
@@ -80,12 +81,17 @@ class CategoryController extends Controller
                 return redirect()->route('category.index')->with('error', 'Category Not Found');
             }
 
-            $data = $request->validate([
+            $request->validate([
                 'title' => 'required',
                 'category_image' => 'nullable|image',
                 'main_category_id.*' => 'nullable',
                 'status' => 'required'
             ]);
+
+            $data = [
+                'title' => $request->title ?? '',
+                'status' => $request->status ?? '',
+            ];
 
             if ($request->file('category_image')) {
                 $fileToDelete = './../../allanArmitage/app_images/category_images/' . $category->image;

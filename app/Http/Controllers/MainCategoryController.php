@@ -23,11 +23,17 @@ class MainCategoryController extends Controller
     public function store(Request $request)
     {
         try {
-            $data = $request->validate([
+            $request->validate([
                 'title' => 'required',
                 'main_category_image' => 'nullable|image',
                 'status' => 'required'
             ]);
+
+            $data = [
+                'title' => $request->title ?? '',
+                'status' => $request->status ?? '',
+                'image' => '',
+            ];
 
             if ($request->file('main_category_image')) {
                 $file = $request->file('main_category_image');
@@ -70,11 +76,16 @@ class MainCategoryController extends Controller
                 return redirect()->route('main.category.index')->with('error', 'Main Category Not Found');
             }
 
-            $data = $request->validate([
+            $request->validate([
                 'title' => 'required',
                 'main_category_image' => 'nullable|image',
                 'status' => 'required'
             ]);
+
+            $data = [
+                'title' => $request->title ?? '',
+                'status' => $request->status ?? '',
+            ];
 
             if ($request->file('main_category_image')) {
                 $fileToDelete = './../../allanArmitage/app_images/main_category_images/' . $main_category->image;

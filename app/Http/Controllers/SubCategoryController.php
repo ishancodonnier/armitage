@@ -44,10 +44,10 @@ class SubCategoryController extends Controller
 
             foreach($request->category_id as $value) {
                 $data = [
-                    'title' => $request->title,
-                    'image' =>  $new_image,
-                    'category_id' => $value,
-                    'status' => $request->status,
+                    'title' => $request->title ?? '',
+                    'image' =>  $new_image ?? '',
+                    'category_id' => $value ?? '',
+                    'status' => $request->status ?? '',
                 ];
                 SubCategory::create($data);
             }
@@ -84,12 +84,18 @@ class SubCategoryController extends Controller
                 return redirect()->route('category.index')->with('error', 'Sub Category Not Found');
             }
 
-            $data = $request->validate([
+            $request->validate([
                 'title' => 'required',
                 'category_id' => 'required',
                 'sub_category_image' => 'nullable|image',
                 'status' => 'required'
             ]);
+
+            $data = [
+                'title' => $request->title ?? '',
+                'category_id' => $request->category_id ?? '',
+                'status' => $request->status ?? '',
+            ];
 
             $category = Category::where('id', $data['category_id'])->first();
             if(!$category){

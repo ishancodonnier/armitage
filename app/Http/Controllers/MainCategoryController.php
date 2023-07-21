@@ -117,7 +117,6 @@ class MainCategoryController extends Controller
             $main_category->update([
                 'is_delete' => true
             ]);
-            $main_category->delete();
             return redirect()->route('main.category.index')->with('success', 'Main Category deleted successfully!');
         } catch (\Exception $e) {
             return back()->with('error', 'An error occurred: ' . $e->getMessage());

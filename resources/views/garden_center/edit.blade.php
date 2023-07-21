@@ -208,7 +208,7 @@
                                                 <option value="">Please Select Country</option>
                                                 @foreach ($country as $count)
                                                     <option value="{{ $count->id }}"
-                                                        @if ($garden_center->region == $count->id) selected @endif>
+                                                        @if ($garden_center->contrary == $count->id) selected @endif>
                                                         {{ $count->nicename }}
                                                     </option>
                                                 @endforeach
@@ -362,7 +362,7 @@
                                 @foreach ($garden_center->garden_center_image as $garden_image)
                                     <div style="display: grid;">
                                         <img width="200px" height="200px"
-                                            src="{{ env('IMAGES_PATH') . 'center_garden_images/' . $garden_image->image }}">
+                                            src="{{ env('IMAGES_PATH') . 'center_garden_image/' . $garden_image->image }}">
                                         <span>{{ $garden_image->image }}</span>
                                     </div>
                                 @endforeach

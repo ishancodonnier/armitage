@@ -30,7 +30,8 @@
                             <table id="item_list" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th width="20%" >Name</th>
+                                        <th width="2%">#</th>
+                                        <th width="18%" >Name</th>
                                         <th width="15%" >Address</th>
 
                                         <th width="10%" >City</th>
@@ -46,10 +47,11 @@
                                 <tbody>
                                     @foreach ($garden_center as $gc)
                                         <tr>
+                                            <td>{{ $loop->iteration }}</td>
                                             <td>{{ $gc->garden_name }}</td>
                                             <td>{{ $gc->address }}</td>
                                             <td>{{ $gc->city }}</td>
-                                            <td>{{ $gc->state }}</td>
+                                            <td>{{ $gc->states_relation->name }}</td>
                                             <td>{{ $gc->zipcode }}</td>
                                             <td>{{ $gc->webside }}</td>
                                             <td>{{ $gc->status == 1 ? 'Active' : 'Inactive' }}</td>

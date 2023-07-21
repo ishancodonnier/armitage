@@ -15,7 +15,7 @@ class GardenCenterController extends Controller
     public function index()
     {
         $pagetitle = 'Garden Center';
-        $garden_center = GardenCenter::get();
+        $garden_center = GardenCenter::with('states_relation')->orderBy('garden_center_id', 'desc')->get();
         return view('garden_center.index', compact('pagetitle', 'garden_center'));
     }
 
@@ -206,7 +206,7 @@ class GardenCenterController extends Controller
     public function destroy($id)
     {
         try {
-            $garden_center = GardenCenter::where('id', $id)->first();
+            $garden_center = GardenCenter::where('garden_center_id', $id)->first();
             $garden_center->update([
                 'is_delete' => true
             ]);
@@ -219,7 +219,7 @@ class GardenCenterController extends Controller
     public function restore($id)
     {
         try {
-            $garden_center = GardenCenter::where('id', $id)->first();
+            $garden_center = GardenCenter::where('garden_center_id', $id)->first();
             $garden_center->update([
                 'is_delete' => false
             ]);

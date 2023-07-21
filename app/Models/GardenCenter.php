@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\GardenCenterImage;
+use App\Models\States;
 
 class GardenCenter extends Model
 {
@@ -37,5 +38,10 @@ class GardenCenter extends Model
     public function garden_center_image()
     {
         return $this->hasMany(GardenCenterImage::class, 'garden_center_id', 'garden_center_id');
+    }
+
+    public function states_relation()
+    {
+        return $this->hasOne(States::class, 'id', 'state');
     }
 }

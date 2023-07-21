@@ -14,7 +14,7 @@
         }
 
         @media only screen and (max-width: 767px) {
-            .image_row{
+            .image_row {
                 gap: 10px;
             }
         }
@@ -44,7 +44,7 @@
                                         <div class="form-group">
                                             <label for="garden_name">Garden Name</label>
                                             <input type="text" name="garden_name"
-                                                class="form-control @error('garden_name') is-invalid @enderror" required
+                                                class="form-control @error('garden_name') is-invalid @enderror"
                                                 id="garden_name" placeholder="Enter Garden Name"
                                                 value="{{ old('garden_name') ?? $garden_center->garden_name }}">
                                             @error('garden_name')
@@ -59,7 +59,8 @@
                                             <label for="webside">Website</label>
                                             <input type="url" name="webside"
                                                 class="form-control @error('webside') is-invalid @enderror" id="webside"
-                                                placeholder="Enter Website" value="{{ old('webside') ?? $garden_center->webside }}">
+                                                placeholder="Enter Website"
+                                                value="{{ old('webside') ?? $garden_center->webside }}">
                                             @error('webside')
                                                 <span class="error invalid-feedback"
                                                     style="display: block">{{ $message }}</span>
@@ -75,7 +76,8 @@
                                             <label for="email">Email</label>
                                             <input type="email" name="email"
                                                 class="form-control @error('email') is-invalid @enderror" id="email"
-                                                placeholder="Enter Email" value="{{ old('email') ?? $garden_center->email }}">
+                                                placeholder="Enter Email"
+                                                value="{{ old('email') ?? $garden_center->email }}">
                                             @error('email')
                                                 <span class="error invalid-feedback"
                                                     style="display: block">{{ $message }}</span>
@@ -86,7 +88,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="mobile_number">Phone/Mobile Number</label>
-                                            <input type="text" name="mobile_number"
+                                            <input type="text" name="mobile_number" oninput="formatMobileNumber(this)"
                                                 class="form-control @error('mobile_number') is-invalid @enderror"
                                                 id="mobile_number" placeholder="Enter Phone/Mobile Number"
                                                 value="{{ old('mobile_number') ?? $garden_center->mobile_number }}">
@@ -102,9 +104,10 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="latitude">Latitude</label>
-                                            <input type="text" name="latitude"
+                                            <input type="text" name="latitude" oninput="formatCoordinate(this)"
                                                 class="form-control @error('latitude') is-invalid @enderror" id="latitude"
-                                                placeholder="Enter Latitude" value="{{ old('latitude') ?? $garden_center->latitude }}">
+                                                placeholder="Enter Latitude"
+                                                value="{{ old('latitude') ?? $garden_center->latitude }}">
                                             @error('latitude')
                                                 <span class="error invalid-feedback"
                                                     style="display: block">{{ $message }}</span>
@@ -115,9 +118,10 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="longitude">Longitude</label>
-                                            <input type="text" name="longitude"
+                                            <input type="text" name="longitude" oninput="formatCoordinate(this)"
                                                 class="form-control @error('longitude') is-invalid @enderror" id="longitude"
-                                                placeholder="Enter Longitude" value="{{ old('longitude') ?? $garden_center->longitude }}">
+                                                placeholder="Enter Longitude"
+                                                value="{{ old('longitude') ?? $garden_center->longitude }}">
                                             @error('longitude')
                                                 <span class="error invalid-feedback"
                                                     style="display: block">{{ $message }}</span>
@@ -144,7 +148,8 @@
                                         <div class="form-group">
                                             <label for="address">City</label>
                                             <input type="text" name="city" id="city" class="form-control"
-                                                placeholder="Enter City" value="{{ old('city') ?? $garden_center->city }}">
+                                                placeholder="Enter City"
+                                                value="{{ old('city') ?? $garden_center->city }}">
                                             @error('address')
                                                 <span class="error invalid-feedback"
                                                     style="display: block">{{ $message }}</span>
@@ -161,7 +166,8 @@
                                             <select class="form-control select2bs4" name="state" id="state">
                                                 <option value="">Please Select State</option>
                                                 @foreach ($states as $st)
-                                                    <option value="{{ $st->id }}" @if($garden_center->state == $st->id) selected @endif >
+                                                    <option value="{{ $st->id }}"
+                                                        @if ($garden_center->state == $st->id) selected @endif>
                                                         @if ($st->country_id == 0)
                                                             {{ $st->name }}
                                                         @else
@@ -180,9 +186,10 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="zipcode">Zipcode</label>
-                                            <input type="text" name="zipcode"
+                                            <input type="text" name="zipcode" oninput="formatZipcode(this)"
                                                 class="form-control @error('zipcode') is-invalid @enderror" id="zipcode"
-                                                placeholder="Enter Zipcode" value="{{ old('zipcode') ?? $garden_center->zipcode }}">
+                                                placeholder="Enter Zipcode"
+                                                value="{{ old('zipcode') ?? $garden_center->zipcode }}">
                                             @error('zipcode')
                                                 <span class="error invalid-feedback"
                                                     style="display: block">{{ $message }}</span>
@@ -194,6 +201,24 @@
 
 
                                 <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="region">Country</label>
+                                            <select class="form-control select2bs4" name="contrary" id="contrary">
+                                                <option value="">Please Select Country</option>
+                                                @foreach ($country as $count)
+                                                    <option value="{{ $count->id }}"
+                                                        @if ($garden_center->region == $count->id) selected @endif>
+                                                        {{ $count->nicename }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('region')
+                                                <span class="error invalid-feedback"
+                                                    style="display: block">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
 
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -201,7 +226,8 @@
                                             <select class="form-control select2bs4" name="region" id="region">
                                                 <option value="">Please Select Region</option>
                                                 @foreach ($region as $rg)
-                                                    <option value="{{ $rg->id }}" @if($garden_center->region == $rg->id) selected @endif>
+                                                    <option value="{{ $rg->id }}"
+                                                        @if ($garden_center->region == $rg->id) selected @endif>
                                                         {{ $rg->region_name }}
                                                     </option>
                                                 @endforeach
@@ -249,7 +275,8 @@
                                                             <div class="col-md-5">
                                                                 <input type="text" name="garden_image_title[]"
                                                                     class="form-control" value="{{ $image->caption }}"
-                                                                    id="garden_image_title_1" placeholder="Enter Image Title">
+                                                                    id="garden_image_title_1"
+                                                                    placeholder="Enter Image Title">
                                                             </div>
                                                             <div class="col-md-2">
                                                                 <button type="button"
@@ -273,8 +300,9 @@
                                                     </div>
 
                                                     <div class="col-md-5">
-                                                        <input type="text" name="garden_image_title[]" class="form-control"
-                                                            id="garden_image_title_1" placeholder="Enter Image Title">
+                                                        <input type="text" name="garden_image_title[]"
+                                                            class="form-control" id="garden_image_title_1"
+                                                            placeholder="Enter Image Title">
                                                     </div>
                                                 </div @endif
                                             </div>
@@ -291,7 +319,7 @@
                                             <label for="description">Description</label>
                                         </div>
                                         <div class="card-body">
-                                            <textarea id="description" required name="description" placeholder="Enter Description here">{{ old('description') ?? $garden_center->description }}</textarea>
+                                            <textarea id="description" name="description" placeholder="Enter Description here">{{ old('description') ?? $garden_center->description }}</textarea>
                                             @error('description')
                                                 <span class="error invalid-feedback"
                                                     style="display: block">{{ $message }}</span>
@@ -420,7 +448,8 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: base_url + "/garden-center/delete-image-from-garden-center/" + garden_center_id + "/" + garden_image_id,
+                        url: base_url + "/garden-center/delete-image-from-garden-center/" +
+                            garden_center_id + "/" + garden_image_id,
                         type: "POST",
                         headers: {
                             "X-CSRF-TOKEN": $("meta[name=csrf-token]").attr("content"),
@@ -454,41 +483,70 @@
             });
         });
 
+        function formatMobileNumber(input) {
 
+            const mobileValue = input.value.replace(/[^\d]/g, '');
+            let formattedNumber = '';
+
+            if (mobileValue.length > 0) {
+                formattedNumber = '(' + mobileValue.substring(0, 3) + ') ';
+                if (mobileValue.length > 3) {
+                    formattedNumber += mobileValue.substring(3, 6) + '-';
+                }
+                if (mobileValue.length > 6) {
+                    formattedNumber += mobileValue.substring(6, 10);
+                }
+            }
+
+            input.value = formattedNumber;
+        }
+
+        function formatCoordinate(input) {
+            const coordinateValue = input.value.replace(/[^\d.-]/g, '');
+            const maxLength = 15;
+            if (coordinateValue.length > maxLength) {
+                input.value = coordinateValue.slice(0, maxLength);
+            }
+        }
+
+        function formatZipcode(input) {
+            const zipcodeValue = input.value.replace(/[^\d-]/g, '');
+            input.value = zipcodeValue;
+        }
 
 
 
         $(function() {
             var validationRules = {
                 "garden_name": "required",
-                "webside": "required",
+                // "webside": "required",
                 // "email": "required",
-                "mobile_number": "required",
+                // "mobile_number": "required",
                 "latitude": "required",
                 "longitude": "required",
                 "address": "required",
                 "city": "required",
                 "state": "required",
                 "zipcode": "required",
-                "region": "required",
-                "description": "required",
+                // "region": "required",
+                // "description": "required",
                 "garden_image[]": "required",
                 "status": "required"
             };
 
             var validation_messages = {
                 "garden_name": "Please Enter Garden Name",
-                "webside": "Please Enter Website",
+                // "webside": "Please Enter Website",
                 // "email": "Please Enter Email",
-                "mobile_number": "Please Enter Phone/Mobile Number",
+                // "mobile_number": "Please Enter Phone/Mobile Number",
                 "latitude": "Please Enter Latitude",
                 "longitude": "Please Enter Longitude",
                 "address": "Please Enter Address",
                 "city": "Please Enter City",
                 "state": "Please Select State",
                 "zipcode": "Please Enter Zipcode",
-                "region": "Please Select Region",
-                "description": "Please Enter Description",
+                // "region": "Please Select Region",
+                // "description": "Please Enter Description",
                 "garden_image[]": "Please Select Item Image",
                 "status": "Please Select Status"
             };

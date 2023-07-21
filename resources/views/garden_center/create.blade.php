@@ -30,7 +30,7 @@
                         <div class="card-header">
                             <h3 class="card-title">{{ $pagetitle }}</h3>
                         </div>
-                        <form id="garden_center_create_form" method="POST" action="{{ route('item.store') }}"
+                        <form id="garden_center_create_form" method="POST" action="{{ route('garden.center.store') }}"
                             enctype="multipart/form-data">@csrf
                             <div class="card-body">
                                 <div class="row">
@@ -39,8 +39,9 @@
                                         <div class="form-group">
                                             <label for="garden_name">Garden Name</label>
                                             <input type="text" name="garden_name"
-                                                class="form-control @error('garden_name') is-invalid @enderror" required
-                                                id="garden_name" placeholder="Enter Garden Name" value="{{ old('garden_name') }}">
+                                                class="form-control @error('garden_name') is-invalid @enderror"
+                                                id="garden_name" placeholder="Enter Garden Name"
+                                                value="{{ old('garden_name') }}">
                                             @error('garden_name')
                                                 <span class="error invalid-feedback"
                                                     style="display: block">{{ $message }}</span>
@@ -71,7 +72,7 @@
                                                 class="form-control @error('email') is-invalid @enderror" id="email"
                                                 placeholder="Enter Email" value="{{ old('email') }}">
                                             @error('email')
-                                                <span class="error invalid-feedback"
+                                                <span class="email-validation-error error invalid-feedback"
                                                     style="display: block">{{ $message }}</span>
                                             @enderror
                                         </div>
@@ -81,7 +82,8 @@
                                         <div class="form-group">
                                             <label for="mobile_number">Phone/Mobile Number</label>
                                             <input type="text" name="mobile_number"
-                                                class="form-control @error('mobile_number') is-invalid @enderror" id="mobile_number"
+                                                class="form-control @error('mobile_number') is-invalid @enderror"
+                                                oninput="formatMobileNumber(this)" id="mobile_number"
                                                 placeholder="Enter Phone/Mobile Number" value="{{ old('mobile_number') }}">
                                             @error('mobile_number')
                                                 <span class="error invalid-feedback"
@@ -95,7 +97,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="latitude">Latitude</label>
-                                            <input type="text" name="latitude"
+                                            <input type="text" name="latitude" oninput="formatCoordinate(this)"
                                                 class="form-control @error('latitude') is-invalid @enderror" id="latitude"
                                                 placeholder="Enter Latitude" value="{{ old('latitude') }}">
                                             @error('latitude')
@@ -108,7 +110,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="longitude">Longitude</label>
-                                            <input type="text" name="longitude"
+                                            <input type="text" name="longitude" oninput="formatCoordinate(this)"
                                                 class="form-control @error('longitude') is-invalid @enderror" id="longitude"
                                                 placeholder="Enter Longitude" value="{{ old('longitude') }}">
                                             @error('longitude')
@@ -118,8 +120,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-
 
                                 <div class="row">
                                     <div class="col-md-6">
@@ -136,7 +136,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="address">City</label>
-                                            <input type="text" name="city" id="city" class="form-control" placeholder="Enter City">
+                                            <input type="text" name="city" id="city" class="form-control"
+                                                placeholder="Enter City">
                                             @error('address')
                                                 <span class="error invalid-feedback"
                                                     style="display: block">{{ $message }}</span>
@@ -172,20 +173,36 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="zipcode">Zipcode</label>
-                                            <input type="text" name="zipcode"
+                                            <input type="text" name="zipcode" oninput="formatZipcode(this)"
                                                 class="form-control @error('zipcode') is-invalid @enderror" id="zipcode"
-                                                placeholder="Enter Zipcode" value="{{ old('zipcode') }}">
+                                                placeholder="Enter Zipcode" value="{{ old('zipcode') }}" minlength="5"
+                                                maxlength="5">
                                             @error('zipcode')
                                                 <span class="error invalid-feedback"
                                                     style="display: block">{{ $message }}</span>
                                             @enderror
                                         </div>
                                     </div>
-
                                 </div>
 
-
                                 <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="region">Country</label>
+                                            <select class="form-control select2bs4" name="contrary" id="contrary">
+                                                <option value="">Please Select Country</option>
+                                                @foreach ($country as $count)
+                                                    <option value="{{ $count->id }}">
+                                                        {{ $count->nicename }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('region')
+                                                <span class="error invalid-feedback"
+                                                    style="display: block">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
 
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -206,8 +223,6 @@
                                     </div>
                                 </div>
 
-
-
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="card">
@@ -217,7 +232,8 @@
                                                     <div class="row flex-nowrap" style="gap: 10px;">
                                                         <div class="col-12">
                                                             <button type="button" id="add_new_image"
-                                                                class="btn btn-success btn-block"><i class="fa fa-plus"></i>
+                                                                class="btn btn-success btn-block"><i
+                                                                    class="fa fa-plus"></i>
                                                                 Add</button>
                                                         </div>
                                                     </div>
@@ -232,7 +248,8 @@
                                                                 <input type="file" accept="image/*"
                                                                     class="custom-file-input" name="garden_image[]"
                                                                     id="garden_image_1">
-                                                                <label class="custom-file-label" for="garden_image_1">Choose
+                                                                <label class="custom-file-label"
+                                                                    for="garden_image_1">Choose
                                                                     Image</label>
                                                             </div>
                                                         </div>
@@ -256,7 +273,7 @@
                                                 <label for="description">Description</label>
                                             </div>
                                             <div class="card-body">
-                                                <textarea id="description" required name="description" placeholder="Enter Description here"></textarea>
+                                                <textarea id="description" name="description" placeholder="Enter Description here"></textarea>
                                                 @error('description')
                                                     <span class="error invalid-feedback"
                                                         style="display: block">{{ $message }}</span>
@@ -361,37 +378,68 @@
             $(this).closest('.image_row').remove();
         });
 
+        function formatMobileNumber(input) {
+
+            const mobileValue = input.value.replace(/[^\d]/g, '');
+            let formattedNumber = '';
+
+            if (mobileValue.length > 0) {
+                formattedNumber = '(' + mobileValue.substring(0, 3) + ') ';
+                if (mobileValue.length > 3) {
+                    formattedNumber += mobileValue.substring(3, 6) + '-';
+                }
+                if (mobileValue.length > 6) {
+                    formattedNumber += mobileValue.substring(6, 10);
+                }
+            }
+
+            input.value = formattedNumber;
+        }
+
+        function formatCoordinate(input) {
+            const coordinateValue = input.value.replace(/[^\d.-]/g, '');
+            const maxLength = 15;
+            if (coordinateValue.length > maxLength) {
+                input.value = coordinateValue.slice(0, maxLength);
+            }
+        }
+
+        function formatZipcode(input) {
+            const zipcodeValue = input.value.replace(/[^\d-]/g, '');
+            input.value = zipcodeValue;
+        }
+
         $(function() {
             var validationRules = {
                 "garden_name": "required",
-                "webside": "required",
+                // "webside": "required",
                 // "email": "required",
-                "mobile_number": "required",
+                // "mobile_number": "required",
                 "latitude": "required",
                 "longitude": "required",
                 "address": "required",
                 "city": "required",
                 "state": "required",
                 "zipcode": "required",
-                "region": "required",
-                "description": "required",
+                // "region": "required",
+                // "description": "required",
                 "garden_image[]": "required",
                 "status": "required"
             };
 
             var validation_messages = {
                 "garden_name": "Please Enter Garden Name",
-                "webside": "Please Enter Website",
+                // "webside": "Please Enter Website",
                 // "email": "Please Enter Email",
-                "mobile_number": "Please Enter Phone/Mobile Number",
+                // "mobile_number": "Please Enter Phone/Mobile Number",
                 "latitude": "Please Enter Latitude",
                 "longitude": "Please Enter Longitude",
                 "address": "Please Enter Address",
                 "city": "Please Enter City",
                 "state": "Please Select State",
                 "zipcode": "Please Enter Zipcode",
-                "region": "Please Select Region",
-                "description": "Please Enter Description",
+                // "region": "Please Select Region",
+                // "description": "Please Enter Description",
                 "garden_image[]": "Please Select Item Image",
                 "status": "Please Select Status"
             };

@@ -228,9 +228,9 @@ class ItemController extends Controller
                 foreach ($request->category_id as $key => $value) {
 
                     $category_data = [
-                        'category_id' => $value ?? '',
-                        'sub_category_id' => $request->sub_category_id[$key] ?? '',
-                        'item_id' => $item->id ?? '',
+                        'category_id' => $value ?? null,
+                        'sub_category_id' => $request->sub_category_id[$key] ?? null,
+                        'item_id' => $item->id ?? null,
                     ];
 
                     if (isset($request->new_sub_category[$key]) && $request->new_sub_category[$key] != null) {
@@ -243,9 +243,9 @@ class ItemController extends Controller
                                 'status' => true,
                             ]);
 
-                            $category_data['sub_category_id'] = $new_sub->id ?? '';
+                            $category_data['sub_category_id'] = $new_sub->id ?? null;
                         } else {
-                            $category_data['sub_category_id'] = $sub_category->id ?? '';
+                            $category_data['sub_category_id'] = $sub_category->id ?? null;
                         }
                     }
 
@@ -303,6 +303,19 @@ class ItemController extends Controller
                 'is_delete' => true
             ]);
             return redirect()->route('item.index')->with('success', 'Item deleted successfully!');
+        } catch (\Exception $e) {
+            return back()->with('error', 'An error occurred: ' . $e->getMessage());
+        }
+    }
+
+    public function restore($id)
+    {
+        try {
+            $item = Item::where('id', $id)->first();
+            $item->update([
+                'is_delete' => false
+            ]);
+            return redirect()->route('item.index')->with('success', 'Item restored successfully!');
         } catch (\Exception $e) {
             return back()->with('error', 'An error occurred: ' . $e->getMessage());
         }

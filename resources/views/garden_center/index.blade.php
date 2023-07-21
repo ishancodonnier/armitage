@@ -51,7 +51,7 @@
                                             <td>{{ $gc->garden_name }}</td>
                                             <td>{{ $gc->address }}</td>
                                             <td>{{ $gc->city }}</td>
-                                            <td>{{ $gc->states_relation->name }}</td>
+                                            <td>{{ $gc->states_relation->iso2 . '-' . $gc->states_relation->name }}</td>
                                             <td>{{ $gc->zipcode }}</td>
                                             <td>{{ $gc->webside }}</td>
                                             <td>{{ $gc->status == 1 ? 'Active' : 'Inactive' }}</td>

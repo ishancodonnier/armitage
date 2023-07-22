@@ -410,6 +410,11 @@
         }
 
         $(function() {
+            $("#garden_center_create_form").submit(function(event) {
+                var htmlContent = $('#description').summernote('code');
+                $('#description').val(htmlContent);
+            });
+
             var validationRules = {
                 "garden_name": "required",
                 // "webside": "required",

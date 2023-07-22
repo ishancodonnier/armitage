@@ -512,6 +512,12 @@
         });
 
         $(function() {
+            $("#item_create_form").submit(function(event) {
+                var htmlContent = $('#description').summernote('code');
+                $('#description').val(htmlContent);
+            });
+
+
             var rowCount = $('.category_container .category_row').length + 1;
             var validationRules = {
                 "title": "required",

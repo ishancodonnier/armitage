@@ -75,13 +75,13 @@
                                                 <option value="">Please Select
                                                     Grown For
                                                 </option>
-                                                <option @if($item->grown_for == "1") selected @endif value="1">
+                                                <option @if ($item->grown_for == '1') selected @endif value="1">
                                                     Grown For Flowers
                                                 </option>
-                                                <option @if($item->grown_for == "2") selected @endif value="2">
+                                                <option @if ($item->grown_for == '2') selected @endif value="2">
                                                     Grown For Foliage
                                                 </option>
-                                                <option @if($item->grown_for == "3") selected @endif value="3">
+                                                <option @if ($item->grown_for == '3') selected @endif value="3">
                                                     Grown For Flowers and Foliage
                                                 </option>
                                             </select>
@@ -96,8 +96,9 @@
                                         <div class="form-group">
                                             <label for="botanical_name">Botanical Name</label>
                                             <input type="text" name="botanical_name"
-                                                class="form-control @error('botanical_name') is-invalid @enderror" id="botanical_name"
-                                                placeholder="Enter Botanical Name" value="{{ old('botanical_name') ?? $item->botanical_name }}">
+                                                class="form-control @error('botanical_name') is-invalid @enderror"
+                                                id="botanical_name" placeholder="Enter Botanical Name"
+                                                value="{{ old('botanical_name') ?? $item->botanical_name }}">
                                             @error('botanical_name')
                                                 <span class="error invalid-feedback"
                                                     style="display: block">{{ $message }}</span>
@@ -291,7 +292,8 @@
                                                 </div>
 
                                                 <div class="col-md-5">
-                                                    <input type="text" name="image_title[]" class="form-control" id="image_title_1" placeholder="Enter Image Title">
+                                                    <input type="text" name="image_title[]" class="form-control"
+                                                        id="image_title_1" placeholder="Enter Image Title">
                                                 </div>
                                             </div @endif
                                         </div>
@@ -349,7 +351,8 @@
                     <div class="row" style="gap: 20px;">
                         @foreach ($item->item_image as $item_image)
                             <div style="display: grid;">
-                                <img width="200px" height="200px" src="{{ env('IMAGES_PATH') . 'item_images/' . $item_image->image }}">
+                                <img width="200px" height="200px"
+                                    src="{{ env('IMAGES_PATH') . 'item_images/' . $item_image->image }}">
                                 <span>{{ $item_image->image }}</span>
                             </div>
                         @endforeach
@@ -674,6 +677,11 @@
 
 
         $(function() {
+            $("#item_edit_form").submit(function(event) {
+                var htmlContent = $('#description').summernote('code');
+                $('#description').val(htmlContent);
+            });
+
             var rowCount = $('.category_container .category_row').length + 1;
             var validationRules = {
                 "title": "required",

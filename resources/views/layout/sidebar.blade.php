@@ -95,9 +95,25 @@
                                 request()->route()->getName() == 'garden.center.update' ||
                                 request()->route()->getName() == 'garden.center.destroy' ||
                                 request()->route()->getName() == 'garden.center.restore') active @endif">
-                        <i class="nav-icon fa fa-map-marker"></i>
+                        <i class="nav-icon fa fa-map-pin"></i>
                         <p>
                             Garden Centers
+                        </p>
+                    </a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a href="{{ route('side.menu.index') }}"
+                        class="nav-link @if (request()->route()->getName() == 'side.menu.index' ||
+                                request()->route()->getName() == 'side.menu.create' ||
+                                request()->route()->getName() == 'side.menu.store' ||
+                                request()->route()->getName() == 'side.menu.edit' ||
+                                request()->route()->getName() == 'side.menu.update' ||
+                                request()->route()->getName() == 'side.menu.destroy') active @endif">
+                        <i class="nav-icon fa fa-bars"></i>
+                        <p>
+                            Side Menu
                         </p>
                     </a>
                 </li>

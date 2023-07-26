@@ -7,6 +7,7 @@ use App\Http\Controllers\GardenCenterController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\MainCategoryController;
+use App\Http\Controllers\SideMenuController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -68,6 +69,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/item/{id}/restore', [ItemController::class, 'restore'])->name('item.restore');
     Route::post('/item/show-sub-category/{category_id}', [ItemController::class, 'show_sub_category_select'])->name('item.show.sub.category');
     Route::post('/item/delete-image-from-item/{item_id}/{image_id}', [ItemController::class, 'delete_image_from_item'])->name('item.delete.image.from.item');
+
+    Route::get('/side-menu', [SideMenuController::class, 'index'])->name('side.menu.index');
+    Route::get('/side-menu/create', [SideMenuController::class, 'create'])->name('side.menu.create');
+    Route::post('/side-menu', [SideMenuController::class, 'store'])->name('side.menu.store');
+    Route::get('/side-menu/{id}/edit', [SideMenuController::class, 'edit'])->name('side.menu.edit');
+    Route::post('/side-menu/{id}/update', [SideMenuController::class, 'update'])->name('side.menu.update');
+    Route::get('/side-menu/{id}/delete', [SideMenuController::class, 'destroy'])->name('side.menu.destroy');
+    Route::get('/side-menu/{id}/restore', [SideMenuController::class, 'restore'])->name('side.menu.restore');
 
     Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 });

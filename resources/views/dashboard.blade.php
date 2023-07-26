@@ -41,7 +41,7 @@
 
                 <div class="col-md-3 col-sm-6 col-12">
                     <div class="info-box shadow-lg">
-                        <span class="info-box-icon bg-danger"><i class="fas fa-map-marker"></i></span>
+                        <span class="info-box-icon bg-danger"><i class="fas fa-map-pin"></i></span>
 
                         <div class="info-box-content">
                             <span class="info-box-text">Number of Garden Center</span>

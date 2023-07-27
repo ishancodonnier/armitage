@@ -26,7 +26,7 @@
                                         <th>Category</th>
                                         <th>Item</th>
                                         {{-- <th>Side Menu</th> --}}
-                                        {{-- <th>Status</th> --}}
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -37,18 +37,7 @@
                                             <td>{{ $side->category != null ? $side->category->title : '' }}</td>
                                             <td>{{ $side->item != null ? $side->item->title : '' }}</td>
                                             <td>
-                                                {{-- <a href="{{ route('side.menu.edit', ['id' => $side->id]) }}" class="btn btn-success">
-                                                    <i class="fas fa-pencil-alt"></i>
-                                                </a> --}}
-
                                                 @if (!($side->category_id == 0 && $side->item_id == 0 && $side->category_type == 3))
-
-                                                    @if($side->sidemenu_type == 0)
-                                                        <a href="{{ route('side.menu.delete', ['id' => $side->id]) }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this from the side menu?');">
-                                                            <i class="far fa-trash-alt"></i> Delete
-                                                        </a>
-                                                    @endif
-
                                                     @if ($side->is_active)
                                                         <a href="{{ route('side.menu.destroy', ['id' => $side->id]) }}" class="btn btn-primary">
                                                             <i class="fa fa-times"></i> Mark as InActive
@@ -56,6 +45,19 @@
                                                     @else
                                                         <a href="{{ route('side.menu.restore', ['id' => $side->id]) }}" class="btn btn-success">
                                                             <i class="fa fa-check"></i> Mark as Active
+                                                        </a>
+                                                    @endif
+                                                @endif
+                                            </td>
+                                            <td>
+                                                {{-- <a href="{{ route('side.menu.edit', ['id' => $side->id]) }}" class="btn btn-success">
+                                                    <i class="fas fa-pencil-alt"></i>
+                                                </a> --}}
+
+                                                @if (!($side->category_id == 0 && $side->item_id == 0 && $side->category_type == 3))
+                                                    @if($side->sidemenu_type == 0)
+                                                        <a href="{{ route('side.menu.delete', ['id' => $side->id]) }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this from the side menu?');">
+                                                            <i class="far fa-trash-alt"></i> Delete
                                                         </a>
                                                     @endif
                                                 @endif

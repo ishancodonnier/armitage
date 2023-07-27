@@ -45,17 +45,17 @@
 
                                                     @if($side->sidemenu_type == 0)
                                                         <a href="{{ route('side.menu.delete', ['id' => $side->id]) }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this from the side menu?');">
-                                                            <i class="far fa-trash-alt"></i>Delete
+                                                            <i class="far fa-trash-alt"></i> Delete
                                                         </a>
                                                     @endif
 
                                                     @if ($side->is_active)
-                                                        <a href="{{ route('side.menu.destroy', ['id' => $side->id]) }}" class="btn btn-danger">
-                                                            <i class="fa fa-times"></i> InActive
+                                                        <a href="{{ route('side.menu.destroy', ['id' => $side->id]) }}" class="btn btn-primary">
+                                                            <i class="fa fa-times"></i> Mark as InActive
                                                         </a>
                                                     @else
-                                                        <a href="{{ route('side.menu.restore', ['id' => $side->id]) }}" class="btn btn-info">
-                                                            <i class="fa fa-check"></i> Active
+                                                        <a href="{{ route('side.menu.restore', ['id' => $side->id]) }}" class="btn btn-success">
+                                                            <i class="fa fa-check"></i> Mark as Active
                                                         </a>
                                                     @endif
                                                 @endif

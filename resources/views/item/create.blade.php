@@ -296,7 +296,6 @@
                 contentType: false,
                 processData: false,
                 async: true,
-                error: function() {},
                 success: function(response) {
                     if (response.status) {
                         var html =

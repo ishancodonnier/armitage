@@ -63,24 +63,28 @@ class SideMenuController extends Controller
                 if ($request->category_id != 0 && $request->item_id == 0) {
                     $category = Category::where('id', $request->category_id)->first();
 
-                    $sourceFilePath = './../../allanArmitage/app_images/category_images/' . $category->image;
-                    $destinationFilePath = './../../allanArmitage/app_images/sidemenu_images/' . $category->image;
+                    if($category->image) {
+                        $sourceFilePath = './../../allanArmitage/app_images/category_images/' . $category->image;
+                        $destinationFilePath = './../../allanArmitage/app_images/sidemenu_images/' . $category->image;
 
-                    if (copy($sourceFilePath, $destinationFilePath)) {
-                        $data['sidemenu_images'] = $category->image;
-                    } else {
-                        $data['sidemenu_images'] = '';
+                        if (copy($sourceFilePath, $destinationFilePath)) {
+                            $data['sidemenu_images'] = $category->image;
+                        } else {
+                            $data['sidemenu_images'] = '';
+                        }
                     }
                 } else {
                     $item = ItemImage::where('item_id', $request->item_id)->first();
 
-                    $sourceFilePath = './../../allanArmitage/app_images/item_images/' . $item->image;
-                    $destinationFilePath = './../../allanArmitage/app_images/sidemenu_images/' . $item->image;
+                    if($item->image) {
+                        $sourceFilePath = './../../allanArmitage/app_images/item_images/' . $item->image;
+                        $destinationFilePath = './../../allanArmitage/app_images/sidemenu_images/' . $item->image;
 
-                    if (copy($sourceFilePath, $destinationFilePath)) {
-                        $data['sidemenu_images'] = $item->image;
-                    } else {
-                        $data['sidemenu_images'] = '';
+                        if (copy($sourceFilePath, $destinationFilePath)) {
+                            $data['sidemenu_images'] = $item->image;
+                        } else {
+                            $data['sidemenu_images'] = '';
+                        }
                     }
                 }
             }
@@ -115,7 +119,8 @@ class SideMenuController extends Controller
                 "category_type" => "required",
                 "is_active" => "required",
                 "category_id" => "required",
-                "item_id" => "required",
+                "item_id" => "required
+                ",
                 "sidemenu_name" => "required",
                 "sidemenu_images" => "nullable"
             ]);
@@ -205,5 +210,37 @@ class SideMenuController extends Controller
         } catch (\Exception $e) {
             return back()->with('error', 'An error occurred: ' . $e->getMessage());
         }
+    }
+
+    public function delete($id)
+    {
+        try {
+            $side_menu = SideMenu::where('id', $id)->delete();
+            return redirect()->route('side.menu.index')->with('success', 'Side Menu Deleted Successfully');
+        } catch (\Exception $e) {
+            return back()->with('error', 'An error occurred: ' . $e->getMessage());
+        }
+    }
+
+    public function check_unique_fields($category_type, $id)
+    {
+        $data['status'] = true;
+        if($category_type == 0)
+        {
+            $category_side_menu = SideMenu::where('category_id', $id)->first();
+            if($category_side_menu) {
+                $data['status'] = false;
+                $data['msg'] = "The Category Already Exist";
+            }
+        } else {
+            $item_side_menu = SideMenu::where('item_id', $id)->first();
+            if($item_side_menu) {
+                $data['status'] = false;
+                $data['msg'] = "The Item Already Exist";
+            }
+        }
+
+        return response()->json($data, 200);
+        exit();
     }
 }

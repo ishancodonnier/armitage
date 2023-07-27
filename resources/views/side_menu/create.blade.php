@@ -3,6 +3,7 @@
     <link rel="stylesheet" href="{{ asset('asset/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('asset/plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('asset/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 @section('content')
     <section class="content">
@@ -106,36 +107,74 @@
     <script src="{{ asset('asset/plugins/select2/js/select2.full.min.js') }}"></script>
     <script>
         $(document).on('change', '.custom_select_field', function() {
+            const base_url = "{{ url('/') }}";
+            var category_type = $('input[type="radio"][name="category_type"]:checked').val();
+            var id = $('.custom_select_field').val();
+
             $('#append_name_and_img_fields').html('');
-            var selectedText = $(this).find('option:selected').text().trim();
 
-            var item_category = $('input[type="radio"][name="category_type"]:checked').val() == 0 ? 'Category' : 'Item';
+            $.ajax({
+                url: base_url + "/side-menu/unique-fields/" + category_type + "/" + id,
+                type: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": $("meta[name=csrf-token]").attr("content"),
+                },
+                cache: false,
+                contentType: false,
+                processData: false,
+                async: true,
+                success: function(response) {
+                    if (response.status) {
+                        $('.custom_select_field').removeClass('is-invalid');
+                        if(category_type == 0) {
+                            $('#category_id-error').html('');
+                        } else {
+                            $('#item_id-error').html('');
+                        }
+                        var selectedText = $('.custom_select_field').find('option:selected').text().trim();
 
-            var html = `<div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="sidemenu_name">Name</label>
-                                    <input type="text" name="sidemenu_name" class="form-control" required id="sidemenu_name" placeholder="Enter Side Menu Name" value="` + selectedText + `">
-                                </div>
-                            </div>
-                        </div>
+                        var item_category = $('input[type="radio"][name="category_type"]:checked').val() == 0 ? 'Category' : 'Item';
 
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <div style="display:grid;">
-                                        <label for="sidemenu_images">Image</label>
-                                        <small style="color: red; margin-top: -0.8rem; margin-bottom: 0.7rem;">If Image is not selected than the selected `+ item_category +` Image will be taken</small>
+                        var html = `<div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="sidemenu_name">Name</label>
+                                                <input type="text" name="sidemenu_name" class="form-control" required id="sidemenu_name" placeholder="Enter Side Menu Name" value="` + selectedText + `">
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" name="sidemenu_images" id="sidemenu_images">
-                                        <label class="custom-file-label" for="sidemenu_images"> Choose Image </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>`;
 
-            $('#append_name_and_img_fields').html(html)
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div style="display:grid;">
+                                                    <label for="sidemenu_images">Image</label>
+                                                    <small style="color: red; margin-top: -0.8rem; margin-bottom: 0.7rem;">If Image is not selected than the selected `+ item_category +` Image will be taken</small>
+                                                </div>
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" name="sidemenu_images" id="sidemenu_images">
+                                                    <label class="custom-file-label" for="sidemenu_images"> Choose Image </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>`;
+
+                        $('#append_name_and_img_fields').html(html)
+                    } else {
+                        if(category_type == 0) {
+                            var error_html = `<span id="category_id-error" class="error invalid-feedback">` + response.msg + `</span>`;
+                        } else {
+                            var error_html = `<span id="item_id-error" class="error invalid-feedback">` + response.msg + `</span>`;
+                        }
+                        $('.custom_select_field').addClass('is-invalid');
+                        $('.append_error').append(error_html)
+                    }
+                },
+                error: function(err) {
+
+                },
+            });
+
         });
 
         $(function() {
@@ -154,7 +193,7 @@
 
                 var html = `<div class="row">
                     <div class="col-md-6">
-                        <div class="form-group">`;
+                        <div class="form-group append_error">`;
                 if (selectedValue == 0) {
                     html += `<input type="hidden" name="item_id" value="0">
                     <label for="category_id">Category</label>

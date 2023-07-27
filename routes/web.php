@@ -75,8 +75,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/side-menu', [SideMenuController::class, 'store'])->name('side.menu.store');
     Route::get('/side-menu/{id}/edit', [SideMenuController::class, 'edit'])->name('side.menu.edit');
     Route::post('/side-menu/{id}/update', [SideMenuController::class, 'update'])->name('side.menu.update');
-    Route::get('/side-menu/{id}/delete', [SideMenuController::class, 'destroy'])->name('side.menu.destroy');
+    Route::get('/side-menu/{id}/destroy', [SideMenuController::class, 'destroy'])->name('side.menu.destroy');
     Route::get('/side-menu/{id}/restore', [SideMenuController::class, 'restore'])->name('side.menu.restore');
+    Route::get('/side-menu/{id}/delete', [SideMenuController::class, 'delete'])->name('side.menu.delete');
+    Route::POST('/side-menu/unique-fields/{category_type}/{id}', [SideMenuController::class, 'check_unique_fields'])->name('side.menu.check_unique_fields');
 
     Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 });

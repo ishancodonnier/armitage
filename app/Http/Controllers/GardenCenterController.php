@@ -208,7 +208,8 @@ class GardenCenterController extends Controller
         try {
             $garden_center = GardenCenter::where('garden_center_id', $id)->first();
             $garden_center->update([
-                'is_delete' => true
+                'is_delete' => true,
+                'updated_date' => new DateTime(),
             ]);
             return redirect()->route('garden.center.index')->with('success', 'Garden Center deleted successfully!');
         } catch (\Exception $e) {
@@ -221,7 +222,8 @@ class GardenCenterController extends Controller
         try {
             $garden_center = GardenCenter::where('garden_center_id', $id)->first();
             $garden_center->update([
-                'is_delete' => false
+                'is_delete' => false,
+                'updated_date' => new DateTime(),
             ]);
             return redirect()->route('garden.center.index')->with('success', 'Garden Center restored successfully!');
         } catch (\Exception $e) {

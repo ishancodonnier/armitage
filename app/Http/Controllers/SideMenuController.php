@@ -135,7 +135,6 @@ class SideMenuController extends Controller
                 'sidemenu_images' => '',
                 'is_active' => $request->is_active,
                 'is_delete' => 0,
-                'created_date' => new DateTime(),
                 'updated_date' => new DateTime(),
             ];
 
@@ -191,7 +190,8 @@ class SideMenuController extends Controller
         try {
             $side_menu = SideMenu::where('id', $id)->first();
             $side_menu->update([
-                'is_active' => false
+                'is_active' => false,
+                'updated_date' => new DateTime(),
             ]);
             return redirect()->route('side.menu.index')->with('success', 'Side Menu Status Inactive!');
         } catch (\Exception $e) {
@@ -204,7 +204,8 @@ class SideMenuController extends Controller
         try {
             $side_menu = SideMenu::where('id', $id)->first();
             $side_menu->update([
-                'is_active' => true
+                'is_active' => true,
+                'updated_date' => new DateTime(),
             ]);
             return redirect()->route('side.menu.index')->with('success', 'Side Menu Status Active!');
         } catch (\Exception $e) {

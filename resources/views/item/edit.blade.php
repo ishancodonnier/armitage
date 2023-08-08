@@ -156,26 +156,24 @@
                                                         </div>
                                                         <div class="col-md-4 add_sub_category_on_change">
                                                             @if (count($item->subCategories) > 0)
-                                                                @foreach ($item->subCategories as $sub)
-                                                                    @if ($cat->id == $sub->category->id)
-                                                                        <select
-                                                                            class="form-control select2bs4 sub_category_id"
-                                                                            name="sub_category_id[{{ $key + 1 }}]"
-                                                                            style="width: 100%;">
-                                                                            <option value="" selected="selected">
-                                                                                Please Select
-                                                                                Sub Category
+                                                                @if ($cat->id == $category_item_subcategory[$key]['category_id'] && $category_item_subcategory[$key]['sub_category_id'] != null)
+                                                                    <select
+                                                                        class="form-control select2bs4 sub_category_id"
+                                                                        name="sub_category_id[{{ $key + 1 }}]"
+                                                                        style="width: 100%;">
+                                                                        <option value="" selected="selected">
+                                                                            Please Select
+                                                                            Sub Category
+                                                                        </option>
+                                                                        @foreach ($cat->sub_category as $sub_cat)
+                                                                            <option
+                                                                                @if ($category_item_subcategory[$key]['sub_category_id'] == $sub_cat->id) selected @endif
+                                                                                value="{{ $sub_cat->id }}">
+                                                                                {{ $sub_cat->title }}
                                                                             </option>
-                                                                            @foreach ($cat->sub_category as $sub_cat)
-                                                                                <option
-                                                                                    @if ($sub->id == $sub_cat->id) selected @endif
-                                                                                    value="{{ $sub_cat->id }}">
-                                                                                    {{ $sub_cat->title }}
-                                                                                </option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                    @endif
-                                                                @endforeach
+                                                                        @endforeach
+                                                                    </select>
+                                                                @endif
                                                             @endif
                                                         </div>
                                                         <div class="col-md-4">

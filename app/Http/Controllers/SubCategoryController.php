@@ -11,7 +11,7 @@ class SubCategoryController extends Controller
     public function index()
     {
         $pagetitle = 'Sub Category';
-        $sub_category = SubCategory::with('category')->get();
+        $sub_category = SubCategory::with('category')->orderBy('id', 'desc')->get();
         return view('sub_category.index', compact('pagetitle', 'sub_category'));
     }
 
@@ -24,7 +24,6 @@ class SubCategoryController extends Controller
 
     public function store(Request $request)
     {
-
         try {
             $request->validate([
                 'title' => 'required',
@@ -32,6 +31,14 @@ class SubCategoryController extends Controller
                 'sub_category_image' => 'nullable|image',
                 'status' => 'required'
             ]);
+
+            $category_ids = $request->category_id;
+            $sub_category = SubCategory::where('title', $request->title)->whereIn('category_id', $category_ids)->get();
+            foreach($sub_category as $sub) {
+                if (($key = array_search($sub->category_id, $category_ids)) !== false) {
+                    unset($category_ids[$key]);
+                }
+            }
 
             $new_image = '';
             if ($request->file('sub_category_image')) {
@@ -41,17 +48,19 @@ class SubCategoryController extends Controller
                 $file->move('./../../allanArmitage/app_images/sub_category_images/', $new_data['sub_category_image']);
                 $new_image = $new_data['sub_category_image'];
             }
-
-            foreach($request->category_id as $value) {
-                $data = [
-                    'title' => $request->title ?? '',
-                    'image' =>  $new_image ?? '',
-                    'category_id' => $value ?? '',
-                    'status' => $request->status ?? '',
-                ];
-                SubCategory::create($data);
+            if(count($category_ids) > 0) {
+                foreach($category_ids as $value) {
+                    $data = [
+                        'title' => $request->title ?? '',
+                        'image' =>  $new_image ?? '',
+                        'category_id' => $value ?? '',
+                        'status' => $request->status ?? '',
+                    ];
+                    SubCategory::create($data);
+                }
+            } else {
+                return back()->with('error', 'Sub Category already exist.');
             }
-
 
             return redirect()->route('sub.category.index')->with('success', 'Sub Category created successfully!');
         } catch (\Exception $e) {
@@ -82,6 +91,22 @@ class SubCategoryController extends Controller
 
             if(!$sub_category) {
                 return redirect()->route('category.index')->with('error', 'Sub Category Not Found');
+            }
+
+            if($sub_category->category_id != $request->category_id) {
+                $category = Category::where('id', $request->category_id)->with('sub_category')->first();
+                foreach($category->sub_category as $sub) {
+                    if($sub->title == $request->title) {
+                        return back()->with('error', 'Sub Category already exist.');
+                    }
+                }
+            }
+
+            if($sub_category->title != $request->title) {
+                $exist_sub_category = SubCategory::where('category_id', $request->category_id)->where('title', $request->title)->first();
+                if($exist_sub_category) {
+                    return back()->with('error', 'Sub Category already exist with same category.');
+                }
             }
 
             $request->validate([

@@ -22,6 +22,7 @@
                             <table id="category_list" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
+                                        <th>Sr No.</th>
                                         <th>Name</th>
                                         <th>Category</th>
                                         <th>Item</th>
@@ -33,6 +34,7 @@
                                 <tbody>
                                     @foreach ($side_menu as $side)
                                         <tr>
+                                            <td>{{ $loop->iteration }}</td>
                                             <td>{{ $side->sidemenu_name }}</td>
                                             <td>{{ $side->category != null ? $side->category->title : '' }}</td>
                                             <td>{{ $side->item != null ? $side->item->title : '' }}</td>

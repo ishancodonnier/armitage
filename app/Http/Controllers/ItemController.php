@@ -16,7 +16,7 @@ class ItemController extends Controller
         $pagetitle = 'Item';
         $items = Item::with('categories')->with(['subCategories' => function ($subQuery) {
             $subQuery->with('category');
-        }])->get();
+        }])->orderBy('id', 'desc')->get();
         return view('item.index', compact('pagetitle', 'items'));
     }
 
@@ -99,7 +99,10 @@ class ItemController extends Controller
                         'item_id' => $item->id,
                     ];
 
-                    CategoryItemSubcategory::create($category_data);
+                    $category_item_subcategory = CategoryItemSubcategory::where('category_id', $category_data['category_id'])->where('item_id', $category_data['item_id'])->where('sub_category_id', $category_data['sub_category_id'])->first();
+                    if(!$category_item_subcategory){
+                        CategoryItemSubcategory::create($category_data);
+                    }
                 }
             }
 
@@ -128,7 +131,10 @@ class ItemController extends Controller
                         }
                     }
 
-                    CategoryItemSubcategory::create($category_data);
+                    $category_item_subcategory = CategoryItemSubcategory::where('category_id', $category_data['category_id'])->where('item_id', $category_data['item_id'])->where('sub_category_id', $category_data['sub_category_id'])->first();
+                    if(!$category_item_subcategory){
+                        CategoryItemSubcategory::create($category_data);
+                    }
                 }
             }
 
@@ -154,9 +160,10 @@ class ItemController extends Controller
         if (!$item) {
             return redirect()->route('item.index')->with('error', 'Item Not Found');
         }
+        $category_item_subcategory = CategoryItemSubcategory::where('item_id', $id)->get()->toArray();
 
         $category = Category::where('status', 1)->get();
-        return view('item.edit', compact('pagetitle', 'category', 'item'));
+        return view('item.edit', compact('pagetitle', 'category', 'item', 'category_item_subcategory'));
     }
 
     public function update(Request $request, $id)
@@ -220,7 +227,10 @@ class ItemController extends Controller
                         'item_id' => $item->id ?? '',
                     ];
 
-                    CategoryItemSubcategory::create($category_data);
+                    $category_item_subcategory = CategoryItemSubcategory::where('category_id', $category_data['category_id'])->where('item_id', $category_data['item_id'])->where('sub_category_id', $category_data['sub_category_id'])->first();
+                    if(!$category_item_subcategory){
+                        CategoryItemSubcategory::create($category_data);
+                    }
                 }
             }
 
@@ -249,7 +259,10 @@ class ItemController extends Controller
                         }
                     }
 
-                    CategoryItemSubcategory::create($category_data);
+                    $category_item_subcategory = CategoryItemSubcategory::where('category_id', $category_data['category_id'])->where('item_id', $category_data['item_id'])->where('sub_category_id', $category_data['sub_category_id'])->first();
+                    if(!$category_item_subcategory){
+                        CategoryItemSubcategory::create($category_data);
+                    }
                 }
             }
 

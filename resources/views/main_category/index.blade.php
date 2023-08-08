@@ -22,6 +22,7 @@
                             <table id="main_category_list" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
+                                        <th>Sr No.</th>
                                         <th>Title</th>
                                         <th>Image</th>
                                         <th>Status</th>
@@ -31,6 +32,7 @@
                                 <tbody>
                                     @foreach ($main_category as $main_cg)
                                         <tr>
+                                            <td>{{ $loop->iteration }}</td>
                                             <td>{{ $main_cg->title }}</td>
                                             <td>{{ $main_cg->image }}</td>
                                             <td>{{ $main_cg->status == 1 ? 'Active' : 'Inactive' }}</td>

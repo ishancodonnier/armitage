@@ -22,6 +22,7 @@
                             <table id="category_list" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
+                                        <th>Sr No.</th>
                                         <th>Title</th>
                                         <th>Main Category</th>
                                         <th>Image</th>
@@ -32,6 +33,7 @@
                                 <tbody>
                                     @foreach ($category as $cg)
                                         <tr>
+                                            <td>{{ $loop->iteration }}</td>
                                             <td>{{ $cg->title }}</td>
                                             <td>
                                                 @foreach ($cg->main_category as $cmg)

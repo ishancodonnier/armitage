@@ -262,13 +262,13 @@
     </section>
 @endsection
 @section('footer-script')
-    <script src="{{ asset('asset/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
-    <script src="{{ asset('asset/plugins/jquery-validation/additional-methods.min.js') }}"></script>
-    <script src="{{ asset('asset/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
-    <script src="{{ asset('asset/plugins/select2/js/select2.full.min.js') }}"></script>
-    <script src="{{ asset('asset/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
-    <script src="{{ asset('asset/plugins/toastr/toastr.min.js') }}"></script>
-    <script src="{{ asset('asset/plugins/summernote/summernote-bs4.min.js') }}"></script>
+        <script src="{{ asset('asset/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+        <script src="{{ asset('asset/plugins/jquery-validation/additional-methods.min.js') }}"></script>
+        <script src="{{ asset('asset/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+        <script src="{{ asset('asset/plugins/select2/js/select2.full.min.js') }}"></script>
+        <script src="{{ asset('asset/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+        <script src="{{ asset('asset/plugins/toastr/toastr.min.js') }}"></script>
+        <script src="{{ asset('asset/plugins/summernote/summernote-bs4.min.js') }}"></script>
     <script>
         const rowNumbers = [1];
         const base_url = "{{ url('/') }}";

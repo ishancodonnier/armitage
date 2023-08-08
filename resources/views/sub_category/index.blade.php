@@ -22,6 +22,7 @@
                             <table id="sub_category_list" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
+                                        <th>Sr No.</th>
                                         <th>Title</th>
                                         <th>Category</th>
                                         <th>Image</th>
@@ -32,6 +33,7 @@
                                 <tbody>
                                     @foreach ($sub_category as $sub)
                                         <tr>
+                                            <td>{{ $loop->iteration }}</td>
                                             <td>{{ $sub->title }}</td>
                                             <td>{{ $sub->category->title }}</td>
                                             <td>{{ $sub->image }}</td>

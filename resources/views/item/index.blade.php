@@ -30,6 +30,7 @@
                             <table id="item_list" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
+                                        <th>Sr No.</th>
                                         <th width="20%">Title</th>
                                         <th width="13%">Category</th>
                                         <th width="13%">Sub Category</th>
@@ -41,6 +42,7 @@
                                 <tbody>
                                     @foreach ($items as $item)
                                         <tr>
+                                            <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->title }}</td>
                                             <td>
                                                 @foreach ($item->categories as $cat)

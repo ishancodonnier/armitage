@@ -12,7 +12,7 @@ class CategoryController extends Controller
     public function index()
     {
         $pagetitle = 'Category';
-        $category = Category::with('main_category')->get();
+        $category = Category::with('main_category')->orderBy('id', 'desc')->get();
         return view('category.index', compact('pagetitle', 'category'));
     }
 
@@ -48,7 +48,7 @@ class CategoryController extends Controller
             }
 
             $category = Category::create($data);
-            $category->main_category()->attach($request->main_category_id);
+            $category->main_category()->sync($request->main_category_id);
 
             return redirect()->route('category.index')->with('success', 'Category created successfully!');
         } catch (\Exception $e) {

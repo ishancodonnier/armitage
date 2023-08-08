@@ -14,7 +14,7 @@ class SideMenuController extends Controller
     public function index()
     {
         $pagetitle = 'Side Menu';
-        $side_menu = SideMenu::with(['category', 'item'])->get();
+        $side_menu = SideMenu::with(['category', 'item'])->orderBy('id', 'desc')->get();
         return view('side_menu.index', compact('side_menu', 'pagetitle'));
     }
 

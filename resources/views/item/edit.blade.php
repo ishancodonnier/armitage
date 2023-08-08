@@ -175,6 +175,15 @@
                                                                         @endif
                                                                     @endif
                                                                 @endif
+                                                            @else
+                                                                @if (count($cat->sub_category) > 0)
+                                                                    <select class="form-control select2bs4 sub_category_id" name="sub_category_id[{{ $key + 1 }}]" style="width: 100%;">
+                                                                        <option value=""> Please Select Sub Category </option>
+                                                                        @foreach ($cat->sub_category as $sub_cat)
+                                                                            <option value="{{ $sub_cat->id }}"> {{ $sub_cat->title }} </option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                @endif
                                                             @endif
                                                         </div>
                                                         <div class="col-md-4">

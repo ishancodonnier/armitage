@@ -300,7 +300,7 @@ class ItemController extends Controller
                 }
             }
 
-            $item->update($data);
+            Item::where('id', $id)->update($data);
 
             return redirect()->route('item.index')->with('success', 'Item updated successfully!');
         } catch (\Exception $e) {

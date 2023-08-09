@@ -416,6 +416,7 @@
                 processData: false,
                 async: true,
                 success: function(response) {
+                    row.find('.add_sub_category_on_change').html('');
                     if (response.status) {
                         var html =
                             `<select class="form-control select2bs4 sub_category_id" name="sub_category_id[` +
